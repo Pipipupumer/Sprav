@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TelephonesModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Абоненты">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="100" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="100" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="100" />
+          <Property Name="Адрес" Type="nvarchar" MaxLength="255" />
+          <Property Name="Номер_телефона" Type="int" />
+          <Property Name="Тип_абонента" Type="nvarchar" MaxLength="50" />
+          <Property Name="Город_или_населенный_пункт_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Города_и_населенные_пункты">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название_населенного_пункта" Type="nvarchar" MaxLength="100" />
+          <Property Name="Тип_населенного_пункта" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Служебные_телефоны">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование_предприятия" Type="nvarchar" MaxLength="100" />
+          <Property Name="Адрес_предприятия" Type="nvarchar" MaxLength="255" />
+          <Property Name="Отдел" Type="nvarchar" MaxLength="100" />
+          <Property Name="Номер_телефона" Type="int" Nullable="false" />
+          <Property Name="Город_или_населенный_пункт_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Абоненты__Город___5165187F">
+          <End Role="Города_и_населенные_пункты" Type="Self.Города_и_населенные_пункты" Multiplicity="0..1" />
+          <End Role="Абоненты" Type="Self.Абоненты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Города_и_населенные_пункты">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Абоненты">
+              <PropertyRef Name="Город_или_населенный_пункт_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Служебные__Город__4E88ABD4">
+          <End Role="Города_и_населенные_пункты" Type="Self.Города_и_населенные_пункты" Multiplicity="0..1" />
+          <End Role="Служебные_телефоны" Type="Self.Служебные_телефоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Города_и_населенные_пункты">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Служебные_телефоны">
+              <PropertyRef Name="Город_или_населенный_пункт_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TelephonesModelContainer">
+          <EntitySet Name="Абоненты" EntityType="Self.Абоненты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Города_и_населенные_пункты" EntityType="Self.Города_и_населенные_пункты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Служебные_телефоны" EntityType="Self.Служебные_телефоны" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Абоненты__Город___5165187F" Association="Self.FK__Абоненты__Город___5165187F">
+            <End Role="Города_и_населенные_пункты" EntitySet="Города_и_населенные_пункты" />
+            <End Role="Абоненты" EntitySet="Абоненты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Служебные__Город__4E88ABD4" Association="Self.FK__Служебные__Город__4E88ABD4">
+            <End Role="Города_и_населенные_пункты" EntitySet="Города_и_населенные_пункты" />
+            <End Role="Служебные_телефоны" EntitySet="Служебные_телефоны" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TelephonesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Абоненты">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Фамилия" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Имя" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Отчество" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Адрес" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Номер_телефона" Type="Int32" />
+          <Property Name="Тип_абонента" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Город_или_населенный_пункт_ID" Type="Int32" />
+          <NavigationProperty Name="Города_и_населенные_пункты" Relationship="Self.FK__Абоненты__Город___5165187F" FromRole="Абоненты" ToRole="Города_и_населенные_пункты" />
+        </EntityType>
+        <EntityType Name="Города_и_населенные_пункты">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_населенного_пункта" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Тип_населенного_пункта" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Абоненты" Relationship="Self.FK__Абоненты__Город___5165187F" FromRole="Города_и_населенные_пункты" ToRole="Абоненты" />
+          <NavigationProperty Name="Служебные_телефоны" Relationship="Self.FK__Служебные__Город__4E88ABD4" FromRole="Города_и_населенные_пункты" ToRole="Служебные_телефоны" />
+        </EntityType>
+        <EntityType Name="Служебные_телефоны">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование_предприятия" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Адрес_предприятия" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Отдел" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Номер_телефона" Type="Int32" Nullable="false" />
+          <Property Name="Город_или_населенный_пункт_ID" Type="Int32" />
+          <NavigationProperty Name="Города_и_населенные_пункты" Relationship="Self.FK__Служебные__Город__4E88ABD4" FromRole="Служебные_телефоны" ToRole="Города_и_населенные_пункты" />
+        </EntityType>
+        <Association Name="FK__Абоненты__Город___5165187F">
+          <End Role="Города_и_населенные_пункты" Type="Self.Города_и_населенные_пункты" Multiplicity="0..1" />
+          <End Role="Абоненты" Type="Self.Абоненты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Города_и_населенные_пункты">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Абоненты">
+              <PropertyRef Name="Город_или_населенный_пункт_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Служебные__Город__4E88ABD4">
+          <End Role="Города_и_населенные_пункты" Type="Self.Города_и_населенные_пункты" Multiplicity="0..1" />
+          <End Role="Служебные_телефоны" Type="Self.Служебные_телефоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Города_и_населенные_пункты">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Служебные_телефоны">
+              <PropertyRef Name="Город_или_населенный_пункт_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TelephonesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Абоненты" EntityType="Self.Абоненты" />
+          <EntitySet Name="Города_и_населенные_пункты" EntityType="Self.Города_и_населенные_пункты" />
+          <EntitySet Name="Служебные_телефоны" EntityType="Self.Служебные_телефоны" />
+          <AssociationSet Name="FK__Абоненты__Город___5165187F" Association="Self.FK__Абоненты__Город___5165187F">
+            <End Role="Города_и_населенные_пункты" EntitySet="Города_и_населенные_пункты" />
+            <End Role="Абоненты" EntitySet="Абоненты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Служебные__Город__4E88ABD4" Association="Self.FK__Служебные__Город__4E88ABD4">
+            <End Role="Города_и_населенные_пункты" EntitySet="Города_и_населенные_пункты" />
+            <End Role="Служебные_телефоны" EntitySet="Служебные_телефоны" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TelephonesModelContainer" CdmEntityContainer="TelephonesEntities">
+          <EntitySetMapping Name="Абоненты">
+            <EntityTypeMapping TypeName="TelephonesModel.Абоненты">
+              <MappingFragment StoreEntitySet="Абоненты">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Номер_телефона" ColumnName="Номер_телефона" />
+                <ScalarProperty Name="Тип_абонента" ColumnName="Тип_абонента" />
+                <ScalarProperty Name="Город_или_населенный_пункт_ID" ColumnName="Город_или_населенный_пункт_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Города_и_населенные_пункты">
+            <EntityTypeMapping TypeName="TelephonesModel.Города_и_населенные_пункты">
+              <MappingFragment StoreEntitySet="Города_и_населенные_пункты">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Название_населенного_пункта" ColumnName="Название_населенного_пункта" />
+                <ScalarProperty Name="Тип_населенного_пункта" ColumnName="Тип_населенного_пункта" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Служебные_телефоны">
+            <EntityTypeMapping TypeName="TelephonesModel.Служебные_телефоны">
+              <MappingFragment StoreEntitySet="Служебные_телефоны">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование_предприятия" ColumnName="Наименование_предприятия" />
+                <ScalarProperty Name="Адрес_предприятия" ColumnName="Адрес_предприятия" />
+                <ScalarProperty Name="Отдел" ColumnName="Отдел" />
+                <ScalarProperty Name="Номер_телефона" ColumnName="Номер_телефона" />
+                <ScalarProperty Name="Город_или_населенный_пункт_ID" ColumnName="Город_или_населенный_пункт_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
